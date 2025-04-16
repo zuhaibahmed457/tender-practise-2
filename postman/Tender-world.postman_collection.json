@@ -1,0 +1,4647 @@
+{
+	"info": {
+		"_postman_id": "c0bb381a-3ec7-491c-b5b0-74512d567170",
+		"name": "Tender-world",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33841727",
+		"_collection_link": "https://jamaliinvbackendteam.postman.co/workspace/tender-word~22a30be6-5552-4b37-9c14-4ce33d6e0e15/collection/33841727-c0bb381a-3ec7-491c-b5b0-74512d567170?action=share&source=collection_link&creator=33841727"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"admin_token\", responseBody?.response?.extra.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@example.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "roles[0]",
+											"value": "admin",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "roles[1]",
+											"value": "transporter",
+											"type": "text"
+										},
+										{
+											"key": "roles[2]",
+											"value": "organization",
+											"type": "text"
+										},
+										{
+											"key": "roles[3]",
+											"value": "super_admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/login",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@example.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/forget-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"forget-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify-otp-code",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@example.com",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/verify-otp",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"verify-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@example.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/reset-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/logout",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "me",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/me",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "ali",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "khan",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "ali@example.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "technician",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "role",
+											"value": "admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/create",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change-password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/change-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "syed Hasnain",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "rehan",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "danish@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "role",
+											"value": "admin",
+											"description": "technician, organization, admin",
+											"type": "text"
+										},
+										{
+											"key": "company_type_id",
+											"value": "9cefc6d5-1424-495b-b8e4-599979f98309",
+											"type": "text"
+										},
+										{
+											"key": "country_id",
+											"value": "ee63455a-7632-4b1a-be78-c86fcff6b572",
+											"type": "text"
+										},
+										{
+											"key": "phone_no",
+											"value": "123123123213",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "manage-status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "status",
+											"value": "inactive",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/manage-status/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"manage-status",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "d06e59ba-8c97-4918-8893-fd0bc12e66cc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-time-zone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "time_zone",
+											"value": "asia/karachi",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/timezone",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										"timezone"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/delete",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users?search&page=1&per_page=10&role=organization&status=active",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"description": "admin OR technician OR organization"
+										},
+										{
+											"key": "status",
+											"value": "active"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "09ddbe32-6fcc-484f-a324-c04ad023b5c1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload-profile-picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "profile_image",
+											"type": "file",
+											"src": "postman-cloud:///1ef7cc86-2a0e-4630-8bc5-26586f44fe74"
+										},
+										{
+											"key": "user_id",
+											"value": "b6c4226b-6e9b-4804-af49-9989e26afa0c",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/upload/profile-picture",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"upload",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "attach industry to user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "f1399686-e555-4fcc-a5ed-a844294bee14"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove industry from user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "subscribers",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4310e059-3ba6-45ac-9006-d763d970115c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4310e059-3ba6-45ac-9006-d763d970115c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "contact-us",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "89f9a8f7-e6c5-44f1-925c-860bf2afa956"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "89f9a8f7-e6c5-44f1-925c-860bf2afa956"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "company type",
+					"item": [
+						{
+							"name": "all company type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/company-type?status=active&page=1&per_page=10&search=sole",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"company-type"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active",
+											"description": "active || inactive"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "industry",
+					"item": [
+						{
+							"name": "get all industries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/industry?status=active&page=1&per_page=10&user_id=2a125475-079a-4a6a-ad2d-cf0451a314c2&force_include_mine=true",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"industry"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										},
+										{
+											"key": "exclude_mine",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "force_include_mine",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tender",
+					"item": [
+						{
+							"name": "manage status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "tender_status",
+											"value": "pending_approval",
+											"description": "condition for admin are as \n\n[TenderStatusCanBeUpdatedBy.ADMIN]: {\n    [TenderStatus.PENDING_APPROVAL]: [\n      TenderStatus.APPROVED,\n      TenderStatus.REJECTED,\n    ],\n    [TenderStatus.APPROVED]: [TenderStatus.IN_ACTIVE],\n    [TenderStatus.IN_ACTIVE]: [TenderStatus.APPROVED],\n  },",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:id/manage-status",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":id",
+										"manage-status"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e6ccf29-781e-4cfa-a9c5-05b64ee611ab"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all tenders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender?page=1&per_page=10&tender_status=draft&created_by_id=20b0c7ce-af47-4f9e-944c-5772634dc194",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "tender_status",
+											"value": "draft"
+										},
+										{
+											"key": "created_by_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "size",
+					"item": [
+						{
+							"name": "get all sizes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/sizes?status=active&page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"sizes"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "country",
+					"item": [
+						{
+							"name": "all countries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/country/countries/all?search=afgh&page=1&per_page=100&status=inactive",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"country",
+										"countries",
+										"all"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "afgh"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "100"
+										},
+										{
+											"key": "status",
+											"value": "inactive"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "super admin",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"admin_token\", responseBody?.response?.extra.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "superadmin@example.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "roles[0]",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "roles[1]",
+											"value": "transporter",
+											"type": "text"
+										},
+										{
+											"key": "roles[2]",
+											"value": "organization",
+											"type": "text"
+										},
+										{
+											"key": "roles[3]",
+											"value": "super_admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/login",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "danish@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/forget-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"forget-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify-otp-code",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "danish@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/verify-otp",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"verify-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "danish@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/reset-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/logout",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "me",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/me",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "bilal",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "khan",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "bilal@iinv.tech",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "technician",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "role",
+											"value": "admin",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/create",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change-password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/change-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "syed Hasnain 01",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "rehan",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "danish@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "admin",
+											"description": "technician, organization, admin",
+											"type": "text"
+										},
+										{
+											"key": "phone_no",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "company_type_id",
+											"value": "9cefc6d5-1424-495b-b8e4-599979f98309",
+											"type": "text"
+										},
+										{
+											"key": "country_id",
+											"value": "ee63455a-7632-4b1a-be78-c86fcff6b572",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "c4cdeca6-4f16-4055-a076-d5373146437a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "manage-status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "status",
+											"value": "inactive",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/manage-status/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"manage-status",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "d06e59ba-8c97-4918-8893-fd0bc12e66cc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/delete",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users?search&page=1&per_page=10&role=organization&status=active",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"description": "admin OR transporter OR organization"
+										},
+										{
+											"key": "status",
+											"value": "active"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload-profile-picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/danis/OneDrive/Pictures/Screenshots/Screenshot (4).png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/upload/profile-picture",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"upload",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-time-zone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "time_zone",
+											"value": "asia/karachi",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/timezone",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										"timezone"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "attach industry to user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "f1399686-e555-4fcc-a5ed-a844294bee14"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove industry from user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "subscribers",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4310e059-3ba6-45ac-9006-d763d970115c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/subscribe/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"subscribe",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4310e059-3ba6-45ac-9006-d763d970115c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "contact-us",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "89f9a8f7-e6c5-44f1-925c-860bf2afa956"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/contact-us/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"contact-us",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "89f9a8f7-e6c5-44f1-925c-860bf2afa956"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "country",
+					"item": [
+						{
+							"name": "all countries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/country/countries/all?search=afgh&page=1&per_page=100&status=inactive",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"country",
+										"countries",
+										"all"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "afgh"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "100"
+										},
+										{
+											"key": "status",
+											"value": "inactive"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "industry",
+					"item": [
+						{
+							"name": "get all industries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/industry?status=active&page=1&per_page=10&user_id=2a125475-079a-4a6a-ad2d-cf0451a314c2&force_include_mine=true",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"industry"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										},
+										{
+											"key": "exclude_mine",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "force_include_mine",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "company type",
+					"item": [
+						{
+							"name": "all company type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/company-type?status=active&page=1&per_page=10&search=sole",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"company-type"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active",
+											"description": "active || inactive"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tender",
+					"item": [
+						{
+							"name": "manage status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "tender_status",
+											"value": "pending_approval",
+											"description": "condition for admin are as \n\n[TenderStatusCanBeUpdatedBy.SUPER_ADMIN]: {\n    [TenderStatus.PENDING_APPROVAL]: [\n      TenderStatus.APPROVED,\n      TenderStatus.REJECTED,\n    ],\n    [TenderStatus.APPROVED]: [TenderStatus.IN_ACTIVE],\n    [TenderStatus.IN_ACTIVE]: [TenderStatus.APPROVED],\n  },",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:id/manage-status",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":id",
+										"manage-status"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e6ccf29-781e-4cfa-a9c5-05b64ee611ab"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "manage status Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "tender_status",
+											"value": "pending_approval",
+											"description": "condition for admin are as \n\n[TenderStatusCanBeUpdatedBy.SUPER_ADMIN]: {\n    [TenderStatus.PENDING_APPROVAL]: [\n      TenderStatus.APPROVED,\n      TenderStatus.REJECTED,\n    ],\n    [TenderStatus.APPROVED]: [TenderStatus.IN_ACTIVE],\n    [TenderStatus.IN_ACTIVE]: [TenderStatus.APPROVED],\n  },",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:id/manage-status",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":id",
+										"manage-status"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e6ccf29-781e-4cfa-a9c5-05b64ee611ab"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all tenders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender?page=1&per_page=10&tender_status=draft&created_by_id=20b0c7ce-af47-4f9e-944c-5772634dc194",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "tender_status",
+											"value": "draft"
+										},
+										{
+											"key": "created_by_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "size",
+					"item": [
+						{
+							"name": "get all sizes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/sizes?status=active&page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"sizes"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "transporter",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "signup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"organization_token\", responseBody?.response?.extra?.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "{{$randomFirstName}}",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "{{$randomLastName}}",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "{{$randomExampleEmail}}",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"description": "organization || transporter",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/sign-up",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"organization_token\", responseBody?.response?.extra?.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "roles[0]",
+											"value": "organization",
+											"type": "text"
+										},
+										{
+											"key": "roles[1]",
+											"value": "transporter",
+											"type": "text"
+										},
+										{
+											"key": "roles[3]",
+											"value": "super_admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/login",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/forget-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"forget-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify-otp-code",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/verify-otp",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"verify-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/reset-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/logout",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "me",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/me",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{organization_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "change-password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/change-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "innovation and invention",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "technology",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "iinvtech@example.com",
+											"type": "text"
+										},
+										{
+											"key": "company_type_id",
+											"value": "9cefc6d5-1424-495b-b8e4-599979f98309",
+											"type": "text"
+										},
+										{
+											"key": "country_id",
+											"value": "ee63455a-7632-4b1a-be78-c86fcff6b572",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "c4cdeca6-4f16-4055-a076-d5373146437a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/delete",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload-profile-picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/danis/OneDrive/Pictures/Screenshots/Screenshot (4).png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/upload/profile-picture",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"upload",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-time-zone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "time_zone",
+											"value": "asia/karachi",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/timezone",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										"timezone"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "attach industry to user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "f1399686-e555-4fcc-a5ed-a844294bee14"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove industry from user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{organization_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "country",
+					"item": [
+						{
+							"name": "all countries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/country/countries/all?search=afgh&page=1&per_page=100&status=inactive",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"country",
+										"countries",
+										"all"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "afgh"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "100"
+										},
+										{
+											"key": "status",
+											"value": "inactive"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "industry",
+					"item": [
+						{
+							"name": "get all industries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/industry?status=active&page=1&per_page=10&user_id=2a125475-079a-4a6a-ad2d-cf0451a314c2&force_include_mine=true",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"industry"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										},
+										{
+											"key": "exclude_mine",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "force_include_mine",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "company type",
+					"item": [
+						{
+							"name": "all company type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/company-type?status=active&page=1&per_page=10&search=sole",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"company-type"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active",
+											"description": "active || inactive"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tender",
+					"item": [
+						{
+							"name": "get all tenders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender?page=1&per_page=10&tender_status=draft&created_by_id=20b0c7ce-af47-4f9e-944c-5772634dc194",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "tender_status",
+											"value": "draft"
+										},
+										{
+											"key": "created_by_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "size",
+					"item": [
+						{
+							"name": "get all sizes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/sizes?status=active&page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"sizes"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "organization",
+			"item": [
+				{
+					"name": "country",
+					"item": [
+						{
+							"name": "all countries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/country/countries/all?search=afgh&page=1&per_page=100&status=inactive",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"country",
+										"countries",
+										"all"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "afgh"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "100"
+										},
+										{
+											"key": "status",
+											"value": "inactive"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "signup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"organization_token\", responseBody?.response?.extra?.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "{{$randomFirstName}}",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "{{$randomLastName}}",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "{{$randomExampleEmail}}",
+											"type": "text"
+										},
+										{
+											"key": "role",
+											"value": "organization",
+											"description": "organization || transporter",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/sign-up",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Fixed syntax to access token property in response body\r",
+											"var responseBody = pm.response.json();\r",
+											"pm.environment.set(\"organization_token\", responseBody?.response?.extra?.access_token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "roles[0]",
+											"value": "organization",
+											"type": "text"
+										},
+										{
+											"key": "roles[1]",
+											"value": "transporter",
+											"type": "text"
+										},
+										{
+											"key": "roles[3]",
+											"value": "super_admin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/login",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/forget-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"forget-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify-otp-code",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/verify-otp",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"verify-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset-password",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "walker88@example.org",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "otp_code",
+											"value": "000000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/reset-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/logout",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "me",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/auth/me",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{organization_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "change-password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "new_password",
+											"value": "123123",
+											"type": "text"
+										},
+										{
+											"key": "confirm_password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/change-password",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "first_name",
+											"value": "innovation and invention",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "technology",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "iinvtech@example.com",
+											"type": "text"
+										},
+										{
+											"key": "phone_no",
+											"value": "3123123123",
+											"type": "text"
+										},
+										{
+											"key": "company_type_id",
+											"value": "9cefc6d5-1424-495b-b8e4-599979f98309",
+											"type": "text"
+										},
+										{
+											"key": "country_id",
+											"value": "ee63455a-7632-4b1a-be78-c86fcff6b572",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "c4cdeca6-4f16-4055-a076-d5373146437a"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/delete",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload-profile-picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/danis/OneDrive/Pictures/Screenshots/Screenshot (4).png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/upload/profile-picture",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"upload",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update-time-zone",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "time_zone",
+											"value": "asia/karachi",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/update/timezone",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										"update",
+										"timezone"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "attach industry to user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										},
+										{
+											"key": "industry_id",
+											"value": "df0f3bdf-7fc1-486a-aace-b4c8057627ba"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove industry from user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/users/:user_id/industry/:industry_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"users",
+										":user_id",
+										"industry",
+										":industry_id"
+									],
+									"variable": [
+										{
+											"key": "user_id",
+											"value": "2a125475-079a-4a6a-ad2d-cf0451a314c2"
+										},
+										{
+											"key": "industry_id",
+											"value": "b3053240-234e-4e07-9aa4-f46c5bce9e70"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{organization_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "industry",
+					"item": [
+						{
+							"name": "get all industries",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/industry?page=1&per_page=10&user_id=20b0c7ce-af47-4f9e-944c-5772634dc194&only_include_mine=true",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"industry"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										},
+										{
+											"key": "exclude_mine",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										},
+										{
+											"key": "only_include_mine",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "company type",
+					"item": [
+						{
+							"name": "all company type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/company-type?status=active&page=1&per_page=10&search=sole",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"company-type"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active",
+											"description": "active || inactive"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "address",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "address",
+											"value": "kala bagh dam ke neehe",
+											"type": "text"
+										},
+										{
+											"key": "country",
+											"value": "Jamboo",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "nambo",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "khamboo",
+											"type": "text"
+										},
+										{
+											"key": "postal_code",
+											"value": "0900",
+											"type": "text"
+										},
+										{
+											"key": "latitude",
+											"value": "12.89289",
+											"type": "text"
+										},
+										{
+											"key": "longitude",
+											"value": "23.22312",
+											"type": "text"
+										},
+										{
+											"key": "label",
+											"value": "hme address",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/address",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"address"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "address",
+											"value": "kala bagh dam ke neehe",
+											"type": "text"
+										},
+										{
+											"key": "country",
+											"value": "Jamboo",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "nambo",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "khamboo sdas",
+											"type": "text"
+										},
+										{
+											"key": "postal_code",
+											"value": "0900",
+											"type": "text"
+										},
+										{
+											"key": "latitude",
+											"value": "12.89289122311",
+											"type": "text"
+										},
+										{
+											"key": "longitude",
+											"value": "23.22312",
+											"type": "text"
+										},
+										{
+											"key": "label",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/address/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"address",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "79ce2d2a-0555-4aa0-a64f-5fef07bfa316"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/address?page=1&per_page=10&user_id=20b0c7ce-af47-4f9e-944c-5772634dc194",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"address"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "jadjaskl",
+											"disabled": true
+										},
+										{
+											"key": "user_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get one",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/address/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"address",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "79ce2d2a-0555-4aa0-a64f-5fef07bfa316"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/address/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"address",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "79ce2d2a-0555-4aa0-a64f-5fef07bfa316"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tender",
+					"item": [
+						{
+							"name": "create tender",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Mera tender",
+											"type": "text"
+										},
+										{
+											"key": "bid_deadline",
+											"value": "2025-03-23T04:55:53.874Z",
+											"type": "text"
+										},
+										{
+											"key": "tender_budget_amount",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "size_id",
+											"value": "10af2ac9-ce7f-4546-becf-65c733858b4a",
+											"type": "text"
+										},
+										{
+											"key": "industry_ids[0]",
+											"value": "0a87ccdd-8dab-4061-adb5-31e369f862d7",
+											"type": "text"
+										},
+										{
+											"key": "transporter_required",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "industry_ids[1]",
+											"value": "8fe2e26e-717e-40e9-8df1-626f2646763e",
+											"type": "text"
+										},
+										{
+											"key": "transportation_budget_amount",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "pickup_address_id",
+											"value": "9140bcb3-f8df-45e1-80e2-d7e0890c0cfc",
+											"type": "text"
+										},
+										{
+											"key": "dropoff_address_id",
+											"value": "9140bcb3-f8df-45e1-80e2-d7e0890c0cfc",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all tenders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "tender_status",
+											"value": "approved",
+											"disabled": true
+										},
+										{
+											"key": "created_by_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194",
+											"disabled": true
+										},
+										{
+											"key": "industry_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194",
+											"disabled": true
+										},
+										{
+											"key": "size_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194",
+											"disabled": true
+										},
+										{
+											"key": "company_type_id",
+											"value": "20b0c7ce-af47-4f9e-944c-5772634dc194",
+											"disabled": true
+										},
+										{
+											"key": "location",
+											"value": "pakistan",
+											"disabled": true
+										},
+										{
+											"key": "price_min",
+											"value": "200",
+											"disabled": true
+										},
+										{
+											"key": "price_max",
+											"value": "400",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "attach media",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/jamal/Downloads/Filters Tender Match .pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:tender_id/attachment",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":tender_id",
+										"attachment"
+									],
+									"variable": [
+										{
+											"key": "tender_id",
+											"value": "6f081d1b-14b9-452b-b6f0-3c9fd83af2f8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete media",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:tender_id/attachment/:attachment_id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":tender_id",
+										"attachment",
+										":attachment_id"
+									],
+									"variable": [
+										{
+											"key": "tender_id",
+											"value": "6f081d1b-14b9-452b-b6f0-3c9fd83af2f8"
+										},
+										{
+											"key": "attachment_id",
+											"value": "ac2e53eb-d8dc-4d21-9af5-5099089c0c50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single tender",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e6ccf29-781e-4cfa-a9c5-05b64ee611ab"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "manage status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "tender_status",
+											"value": "pending_approval",
+											"description": "organization who is the creator of the tender can save the tender leading to draft status then can publish the tender leading to pending_approval and can also mark the tender as received when the tender is in delivered status.\n  \n[TenderStatusCanBeUpdatedBy.CREATOR_ORGANIZATION]: {\n    [TenderStatus.DRAFT]: [TenderStatus.PENDING_APPROVAL], // Organization submits tender\n    [TenderStatus.DELIVERED]: [TenderStatus.RECEIVED], // Organization confirms delivery\n  },\n\n [TenderStatusCanBeUpdatedBy.BIDDING_ORGANIZATION]: {\n    [TenderStatus.IN_PROGRESS]: [TenderStatus.DELIVERED],\n  },\n\n",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/tender/:id/manage-status",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"tender",
+										":id",
+										"manage-status"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e6ccf29-781e-4cfa-a9c5-05b64ee611ab"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "size",
+					"item": [
+						{
+							"name": "get all sizes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/sizes?status=active&page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"sizes"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "active"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "sole",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "media",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/jamal/Downloads/Filters Tender Match .pdf"
+										},
+										{
+											"key": "folder_path",
+											"value": "tenders",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/media",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"media"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/media/:id",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"media",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4e1aee26-d646-4c22-92f7-a0b193120bf4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "bid",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "amount",
+											"value": "2000",
+											"type": "text"
+										},
+										{
+											"key": "tender_id",
+											"value": "d5570159-d8fc-4d2d-8217-f5ba746cba86",
+											"type": "text"
+										},
+										{
+											"key": "delivery_date",
+											"value": "01-01-2025",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/bid",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"bid"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all bids",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/bid",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"bid"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "10",
+											"description": "defaut: 10, optional",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "default: 1, optional",
+											"disabled": true
+										},
+										{
+											"key": "tender_id",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "bid_status",
+											"value": null,
+											"description": "optional, [pending, intransication, completed]",
+											"disabled": true
+										},
+										{
+											"key": "organization_id",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "start_date",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "end_date",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "delivery_date_start",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "delivery_date_end",
+											"value": null,
+											"description": "optional",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "notification",
+					"item": [
+						{
+							"name": "get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}{{version}}/notifications?page=1&per_page=10",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"notifications"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment methods",
+					"item": [
+						{
+							"name": "create link",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "type",
+											"value": "bank_account",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}{{version}}/payment-methods",
+									"host": [
+										"{{base_url}}{{version}}"
+									],
+									"path": [
+										"payment-methods"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{organization_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

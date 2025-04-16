@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Tender Status Update</title>
+  <style>
+    body,
+    table,
+    td,
+    a {
+      text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100%;
+      font-family: Arial, Roboto, Inter, sans-serif;
+      color: #3a3e49;
+      background: #f4f4f4;
+    }
+
+    table {
+      border-collapse: collapse !important;
+      width: 100%;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+    }
+
+    .email-header {
+      background: #0090F3;
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px 20px;
+    }
+
+    .email-header img {
+      width: 160px;
+      height: auto;
+      margin-bottom: 12px;
+    }
+
+    .email-body {
+      padding: 30px 40px;
+      color: #3a3e49;
+    }
+
+    .email-body h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0090F3;
+      margin-bottom: 15px;
+    }
+
+    .email-body p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+      color: #555;
+    }
+
+    .status-label {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: #e4e4e4;
+      color: #3a3e49;
+      margin: 15px 0;
+    }
+
+    /* Status-specific styles */
+    .approved {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .rejected {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .pending_approval {
+      background-color: #FFA500;
+      color: #fff;
+    }
+
+    .draft {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .in_active {
+      background-color: #343a40;
+      color: #fff;
+    }
+
+    .delivered {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .received {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 6px;
+      background-color: #0090F3;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .button:hover {
+      background: #0078DC;
+    }
+
+    .email-footer {
+      background: #3a3e49;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <table class="email-container">
+      <tr>
+        <td class="email-header">
+          <img src="{{backend_url}}/images/defaults/app-logo.svg" alt="{{company_name}} Logo" />
+          <h1>Tender Status Update</h1>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="email-body">
+          <h2>Hello, {{organization_name}}</h2>
+
+          <p>Your tender titled <strong>{{tender_title}}</strong> has a status update.</p>
+
+          <!-- Status Label -->
+          <p>
+            <span class="status-label {{tender_status}}">{{tender_status_label}}</span>
+          </p>
+
+          <!-- Dynamic Message -->
+          {{#if (eq tender_status "approved")}}
+          <p>We are pleased to inform you that your tender has been <strong>approved</strong>.</p>
+          {{else if (eq tender_status "rejected")}}
+          <p>We regret to inform you that your tender has been <strong>rejected</strong>. Please contact support for
+            further details.</p>
+          {{else if (eq tender_status "draft")}}
+          <p>Your tender is currently saved as a <strong>draft</strong>. You may continue editing and submit when ready.
+          </p>
+          {{else if (eq tender_status "pending_approval")}}
+          <p>Your tender is currently <strong>pending approval</strong>. We will notify you once it's reviewed.</p>
+          {{else if (eq tender_status "in_active")}}
+          <p>Your tender is marked as <strong>inactive</strong> and is not visible to others.</p>
+          {{else if (eq tender_status "delivered")}}
+          <p>Your tender has been successfully <strong>delivered</strong> by {{delivered_by}}.</p>
+          {{else if (eq tender_status "received")}}
+          <p>You have successfully <strong>marked the tender as received</strong>.</p>
+          <p>The bidding organization has been notified about the receipt. You can now proceed with internal review or
+            processing as per your workflow.</p>
+          {{else}}
+          <p>Your tender status has been updated.</p>
+          {{/if}}
+
+          <!-- Conditional Button (Approved or Delivered Only) -->
+          {{#if (eq tender_status "approved")}}
+          <div style="text-align: center;">
+            <a href="{{tender_url}}" class="button">View Tender Details</a>
+          </div>
+          {{else if (eq tender_status "delivered")}}
+          <div style="text-align: center;">
+            <a href="{{tender_url}}" class="button">View Tender Details</a>
+          </div>
+          {{else if (eq tender_status "received")}}
+          <div style="text-align: center;">
+            <a href="{{tender_url}}" class="button">View Tender Details</a>
+          </div>
+          {{/if}}
+        </td>
+      </tr>
+
+      <tr>
+        <td class="email-footer">
+          &copy; {{year}} {{company_name}}. All rights reserved.
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+
+</html>
