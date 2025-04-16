@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Tender Status Update</title>
+  <style>
+    body, table, td, a {
+      text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100%;
+      font-family: Arial, Roboto, Inter, sans-serif;
+      color: #3a3e49;
+      background: #f9f9f9;
+    }
+
+    table {
+      border-collapse: collapse !important;
+      width: 100%;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+      overflow: hidden;
+    }
+
+    .email-header {
+      background: #0090F3;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .email-header img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 14px;
+    }
+
+    .email-body {
+      padding: 30px;
+      color: #3a3e49;
+    }
+
+    .email-body h2 {
+      color: #0090F3;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .email-body p {
+      margin: 15px 0;
+      font-size: 16px;
+      color: #767676;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 6px;
+      background-color: #0090F3;
+      color: #ffffff;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #0078DC;
+    }
+
+    .email-footer {
+      background: #3a3e49;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid #272727;
+    }
+  </style>
+</head>
+
+<body>
+  <center>
+    <table class="email-container">
+      <tr>
+        <td class="email-header">
+          <img src="{{backend_url}}/images/defaults/app-logo.svg" alt="{{company_name}} Logo" />
+          <h1>Tender Status Update</h1>
+        </td>
+      </tr>
+      <tr>
+        <td class="email-body">
+          <h2>Hello, {{organization_name}}</h2>
+          <p>Your tender <strong>{{tender_title}}</strong> status has been updated.</p>
+
+          <!-- Status Box with Inline Style -->
+          <p style="text-align: center;">
+            {{#if (eq tender_status "approved")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#28a745; color:#fff;">
+                APPROVED
+              </span>
+            {{else if (eq tender_status "rejected")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#dc3545; color:#fff;">
+                REJECTED
+              </span>
+            {{else if (eq tender_status "pending_approval")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#FFA500; color:#fff;">
+                PENDING APPROVAL
+              </span>
+            {{else if (eq tender_status "draft")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#6c757d; color:#fff;">
+                DRAFT
+              </span>
+            {{else if (eq tender_status "in_active")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#343a40; color:#fff;">
+                INACTIVE
+              </span>
+            {{else if (eq tender_status "delivered")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#007bff; color:#fff;">
+                DELIVERED
+              </span>
+            {{else if (eq tender_status "received")}}
+              <span style="display:inline-block; padding:8px 15px; border-radius:20px; font-size:14px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; background:#17a2b8; color:#fff;">
+                RECEIVED
+              </span>
+            {{/if}}
+          </p>
+
+          <!-- Dynamic Message Based on Status -->
+          {{#if (eq tender_status "approved")}}
+            <p>Your tender has been approved.</p>
+          {{else if (eq tender_status "rejected")}}
+            <p>Unfortunately, your tender has been rejected.</p>
+          {{else if (eq tender_status "draft")}}
+            <p>Your tender is currently saved as a draft.</p>
+          {{else if (eq tender_status "pending_approval")}}
+            <p>Your tender is awaiting admin approval.</p>
+          {{else if (eq tender_status "in_active")}}
+            <p>Your tender has been marked as inactive.</p>
+          {{else if (eq tender_status "delivered")}}
+            <p>Your tender has been marked as delivered and delivered by {{delivered_by}}.</p>
+          {{else if (eq tender_status "received")}}
+            <p>Your tender has been marked as received.</p>
+          {{else}}
+            <p>Your tender status has been updated.</p>
+          {{/if}}
+
+          <p style="text-align: center;">
+            <a href="{{tender_url}}" class="button">View Tender</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="email-footer">
+          &copy; {{year}} {{company_name}}. All rights reserved.
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Bid Submission Confirmation</title>
+    <style>
+        body,
+        table,
+        td,
+        a {
+            text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Roboto, Inter, sans-serif;
+            color: #3a3e49;
+            background: #f9f9f9;
+        }
+
+        table {
+            border-collapse: collapse !important;
+            width: 100%;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: #0090F3;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .email-header img {
+            width: 180px;
+            height: auto;
+            margin-bottom: 14px;
+        }
+
+        .email-body {
+            padding: 30px;
+            color: #3a3e49;
+        }
+
+        .email-body h2 {
+            color: #0090F3;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 15px;
+        }
+
+        .email-body p {
+            margin: 15px 0;
+            font-size: 16px;
+            color: #767676;
+        }
+
+        /* CTA Button */
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 6px;
+            background-color: #0090F3;
+            color: #ffffff;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #0078DC;
+        }
+
+        .email-footer {
+            background: #3a3e49;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid #272727;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <table class="email-container">
+            <tr>
+                <td class="email-header">
+                    <img src="{{backend_url}}/images/defaults/app-logo.svg" alt="{{company_name}} Logo">
+                    <h1>Bid Submission Confirmation</h1>
+                </td>
+            </tr>
+            <tr>
+                <td class="email-body">
+                    <h2>Hello, {{bidder_name}}</h2>
+                    <p>You have successfully placed a bid on the tender "<strong>{{tender_title}}</strong>".</p>
+                    <p><strong>Bid Date:</strong> {{bid_date}}</p>
+                    <p>We will notify you when there are any updates regarding this tender.</p>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="email-footer">
+                    &copy; {{year}} {{company_name}}. All rights reserved.
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+
+</html>

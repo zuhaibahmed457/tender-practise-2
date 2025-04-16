@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tender Status Updated</title>
+  <style>
+    body, table, td, a {
+      text-size-adjust: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100%;
+      font-family: Arial, Roboto, Inter, sans-serif;
+      background-color: #f4f4f4;
+      color: #3a3e49;
+    }
+
+    table {
+      border-collapse: collapse !important;
+      width: 100%;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
+
+    .email-header {
+      background: #0090F3;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .email-header img {
+      width: 160px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .email-body {
+      padding: 30px;
+    }
+
+    .email-body h2 {
+      color: #0090F3;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .email-body p {
+      font-size: 16px;
+      color: #555;
+      margin: 12px 0;
+    }
+
+    .status-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin: 20px 0;
+      font-size: 16px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .approved {
+      background-color: #28a745;
+    }
+
+    .rejected {
+      background-color: #dc3545;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #0090F3;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    .email-footer {
+      background-color: #3a3e49;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <table class="email-container">
+      <tr>
+        <td class="email-header">
+          <img src="{{backend_url}}/images/defaults/app-logo.svg" alt="{{company_name}} Logo" />
+          <h1>Tender Status Update</h1>
+        </td>
+      </tr>
+      <tr>
+        <td class="email-body">
+          <h2>Hello Admin,</h2>
+          <p>The tender titled <strong>"{{tender_title}}"</strong> submitted by <strong>{{organization_name}}</strong> has been updated.</p>
+
+          <div class="status-tag {{status_class}}">
+            {{tender_status}}
+          </div>
+
+          <p>This action was performed by: <strong>{{action_taken_by}}</strong></p>
+          <p>Action Date: {{action_date}}</p>
+
+          <p>To view full details, click below:</p>
+          <p style="text-align: center;">
+            <a href="{{approval_link}}" class="button">View Tender</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="email-footer">
+          &copy; {{year}} {{company_name}}. All rights reserved.
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>
